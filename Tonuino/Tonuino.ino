@@ -148,8 +148,8 @@ void resetSettings() {
   mySettings.cookie = cardCookie;
   mySettings.version = 2;
   mySettings.maxVolume = 25;
-  mySettings.minVolume = 5;
-  mySettings.initVolume = 15;
+  mySettings.minVolume = 2;
+  mySettings.initVolume = 10;
   mySettings.eq = 1;
   mySettings.locked = false;
   mySettings.standbyTimer = 0;
