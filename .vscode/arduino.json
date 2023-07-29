@@ -1,7 +1,7 @@
 {
     "configuration": "cpu=atmega328old",
     "board": "arduino:avr:nano",
-    "port": "COM3",
+    "port": "COM6",
     "sketch": "Tonuino\\Tonuino.ino",
     "output": "build",
     "programmer": "jtag3"

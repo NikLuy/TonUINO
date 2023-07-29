@@ -29,6 +29,7 @@ uint16_t currentTrack;
 uint16_t firstTrack;
 uint8_t queue[255];
 uint8_t volume;
+uint16_t TRACKNUMBER_SILENCE = 250;
 
 struct folderSettings {
   uint8_t folder;
@@ -853,7 +854,12 @@ void playFolder() {
   disablestandbyTimer();
   knownCard = true;
   _lastTrackFinished = 0;
+  // Fehler falsche Anzahl Files 
+  mp3.playFolderTrack(myFolder->folder, TRACKNUMBER_SILENCE);
+	delay(500);
+  // Fehler falsche Anzahl Files 
   numTracksInFolder = mp3.getFolderTrackCount(myFolder->folder);
+  numTracksInFolder = numTracksInFolder -1;
   firstTrack = 1;
   Serial.print(numTracksInFolder);
   Serial.print(F(" Dateien in Ordner "));
@@ -1217,6 +1223,10 @@ void adminMenu(bool fromCard = false) {
           Serial.println(F("Abgebrochen!"));
           mp3.playMp3FolderTrack(802);
           return;
+        }else
+        {
+            Serial.println(F("Warte auf Karte..."));
+             delay(300);
         }
       } while (!mfrc522.PICC_IsNewCardPresent());
 
@@ -1271,6 +1281,10 @@ void adminMenu(bool fromCard = false) {
           Serial.println(F("Abgebrochen!"));
           mp3.playMp3FolderTrack(802);
           return;
+        }else
+        {
+            Serial.println(F("Warte auf Karte..."));
+             delay(300);
         }
       } while (!mfrc522.PICC_IsNewCardPresent());
 
@@ -1457,7 +1471,11 @@ void resetCard() {
       Serial.print(F("Abgebrochen!"));
       mp3.playMp3FolderTrack(802);
       return;
-    }
+    }else
+        {
+            Serial.println(F("Warte auf Karte..."));
+             delay(300);
+        }
   } while (!mfrc522.PICC_IsNewCardPresent());
 
   if (!mfrc522.PICC_ReadCardSerial())
